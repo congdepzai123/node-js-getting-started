@@ -1,28 +1,25 @@
-const { spawn } = require('child_process');
-const request = require('request');
-const test = require('tape');
+var http = require('http');
+var lanthu = 0;
+var ancuc = "co'"
+const PORT = process.env.PORT || 5000
+    // http.createServer(function (req, res) {
+    //     lanthu++
+    //   res.writeHead(200, {'Content-Type': 'text/html'});
+    //   res.end('Hello World!' + 
+    //   "http:\\http://127.0.0.1:8080/" + 
+    //   "localhost:8080"+
+    //   "lan thu: " + lanthu);
+    // }).listen(8080);
 
-// Start the app
-const env = Object.assign({}, process.env, {PORT: 5000});
-const child = spawn('node', ['index.js'], {env});
-
-test('responds to requests', (t) => {
-  t.plan(4);
-
-  // Wait until the server is ready
-  child.stdout.on('data', _ => {
-    // Make a request to our app
-    request('http://127.0.0.1:5000', (error, response, body) => {
-      // stop the server
-      child.kill();
-
-      // No error
-      t.false(error);
-      // Successful response
-      t.equal(response.statusCode, 200);
-      // Assert content checks
-      t.notEqual(body.indexOf("<title>Node.js Getting Started on Heroku</title>"), -1);
-      t.notEqual(body.indexOf("Getting Started on Heroku with Node.js"), -1);
-    });
-  });
-});
+function XuLyWEB(request, response) {
+    lanthu++
+    response.writeHead(200, { 'Content-Type': 'text/html' });
+    response.end('Server V3 - Chao moi nguoi moi ngay!' +
+        "<br> http://127.0.0.1:8080/" +
+        "<br> localhost:8080" +
+        "<br> lan thu: " + lanthu)
+    console.log("\n\t ...lanthu - " + lanthu)
+    console.log("\n\t Có làm thì mới có ăn " + " " + ancuc)
+}
+http.createServer(XuLyWEB).listen(PORT);
+console.log("RUN")
